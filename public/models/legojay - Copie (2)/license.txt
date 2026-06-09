@@ -1,0 +1,11 @@
+Model Information:
+* title:	Lego Ninjago - Jay ZX.
+* source:	https://sketchfab.com/3d-models/lego-ninjago-jay-zx-d518d006709a40fa9195ecbcb8d0f9b5
+* author:	Dr. Heinz Doofenshmirtz (https://sketchfab.com/Dr._Heinz_Doofenshmirtz)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Lego Ninjago - Jay ZX." (https://sketchfab.com/3d-models/lego-ninjago-jay-zx-d518d006709a40fa9195ecbcb8d0f9b5) by Dr. Heinz Doofenshmirtz (https://sketchfab.com/Dr._Heinz_Doofenshmirtz) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
