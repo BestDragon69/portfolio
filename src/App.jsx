@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import LegoLoading from './components/LegoLoading';
 import LegoIntro from './components/LegoIntro';
 import NotFound from './components/NotFound';
+import CustomCursor from './components/CustomCursor';
 
 function makeWeatherMsg(code, temp, cc, ws, wd, pre, day) {
   const dirs = ['Nord','N-Est','Est','S-Est','Sud','S-Ouest','Ouest','N-Ouest'];
@@ -108,6 +109,7 @@ function App() {
 
   return (
     <>
+      <CustomCursor />
       {(window.location.pathname !== '/' && window.location.pathname !== '') ? (
         <NotFound />
       ) : (

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Lego Gandalf
+* source:	https://sketchfab.com/3d-models/lego-gandalf-d2ef331c52544c17b7d31674d833174b
+* author:	Tirto Suwondo (https://sketchfab.com/Tirto.Suwondo)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Lego Gandalf" (https://sketchfab.com/3d-models/lego-gandalf-d2ef331c52544c17b7d31674d833174b) by Tirto Suwondo (https://sketchfab.com/Tirto.Suwondo) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

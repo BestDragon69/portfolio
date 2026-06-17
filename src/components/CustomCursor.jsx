@@ -1,0 +1,84 @@
+import { useEffect, useRef, useState } from 'react';
+
+const STYLE = `
+@keyframes sword-swing {
+  0%   { transform: rotate(0deg) scale(1); }
+  30%  { transform: rotate(-45deg) scale(1.2); }
+  60%  { transform: rotate(15deg) scale(0.95); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+.sword-click {
+  animation: sword-swing 0.3s ease-out forwards;
+}
+`;
+
+export default function CustomCursor() {
+  const ref    = useRef(null);
+  const pos    = useRef({ x: -999, y: -999 });
+  const [swinging, setSwinging] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+
+    const onMove = e => {
+      pos.current.x = e.clientX;
+      pos.current.y = e.clientY;
+    };
+
+    let rafId;
+    const tick = () => {
+      el.style.transform = `translate(${pos.current.x - 24}px, ${pos.current.y - 24}px)`;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
+    window.addEventListener('pointermove', onMove, { capture: true });
+
+    return () => {
+      window.removeEventListener('pointermove', onMove, { capture: true });
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  useEffect(() => {
+    const onClick = () => {
+      setSwinging(false);
+      requestAnimationFrame(() => setSwinging(true));
+    };
+    window.addEventListener('pointerdown', onClick, { capture: true });
+    return () => window.removeEventListener('pointerdown', onClick, { capture: true });
+  }, []);
+
+  return (
+    <>
+      <style>{STYLE}</style>
+      <div
+        ref={ref}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: 48,
+          height: 48,
+          pointerEvents: 'none',
+          zIndex: 99999,
+          willChange: 'transform',
+        }}
+      >
+        <img
+          src="/logo_souris.png"
+          alt=""
+          draggable={false}
+          className={swinging ? 'sword-click' : ''}
+          onAnimationEnd={() => setSwinging(false)}
+          style={{
+            width: '100%',
+            height: '100%',
+            userSelect: 'none',
+            display: 'block',
+          }}
+        />
+      </div>
+    </>
+  );
+}

@@ -249,11 +249,11 @@ const FLOOR_DATA    = packBricks(FLOOR_STUDS, FLOOR_ROWS, BRICK_TYPES_FLOOR, flo
 
 // ── Messages tutoriel roi ─────────────────────────────────────────────────────
 const KING_MESSAGES = [
-  "Bienvenue, explorateur ! Je suis le Roi — développeur et bâtisseur de ce portfolio. Tu y découvriras mes projets, mes compétences et qui je suis vraiment !",
-  "⚠️ AVANT TOUT : rendez-vous chez le Sorcier (mur ouest) ! Il vend la Poudre Révélatrice — sans elle, impossible de lire les parchemins des marchands. En cadeau de bienvenue, voici 10 pièces d'or ! 🪙",
-  "💡 Pas le temps d'explorer ? Le Sorcier propose aussi un Parchemin de Synthèse pour seulement 5 pièces — un résumé PDF de tout mon profil, pour aller à l'essentiel.",
+  "Bienvenue, voyageur... La place est bien silencieuse aujourd'hui. Je suis le Roi de ce royaume — développeur et bâtisseur de ce portfolio.",
+  "Il y a trois lunes, un Sorcier est apparu. D'un seul sortilège, il a enchanté tous les objets des marchands... et les neuf marchands se sont évaporés dans la nuit !",
+  "Le Sorcier rôde toujours parmi les stands — côté ouest. Il détient la Poudre Révélatrice, seule capable de briser ses enchantements et révéler les parchemins cachés. En cadeau de bienvenue, voici 10 pièces d'or ! 🪙",
   "Pour naviguer : clique-glisse pour regarder autour de toi. Clique sur un stand pour t'en approcher, puis sur un objet pour l'examiner. Appuie sur Échap ou le bouton pour revenir sur la place.",
-  "Chaque marchand cache 3 objets. Saupoudre-les avec la Poudre Révélatrice pour dévoiler leur parchemin ! Une fois ouvert, utilise la molette de la souris pour le dérouler.",
+  "Chaque stand renferme 3 objets enchantés. Saupoudre-les avec la Poudre Révélatrice pour briser le sort et lire les parchemins ! Une fois ouvert, utilise la molette pour le dérouler.",
   "🤫 Les anciens racontent qu'au fond du château sommeille un secret bien gardé... Appuyez sur ce qui dépasse du sol — parfois, ce qui monte cache ce qui descend.",
   "🔥 On dit aussi que les flammes murmurent un ordre précis... Le feu s'éteint pour ceux qui savent écouter.",
 ];
@@ -264,7 +264,7 @@ const STANDS_CONTENT = [
   // 0 — Forgeron — Profil
   { popupTheme: 'shield', items: [
     { label: 'Portrait', title: '⚔️ Qui suis-je ?', content: [
-      'Florian Quillon, développeur Full-Stack de 20 ans avec une affinité marquée pour le front-end et les interfaces interactives.',
+      'Florian Quillon, développeur Full-Stack de 19 ans avec une affinité marquée pour le front-end et les interfaces interactives.',
       'Autodidacte et curieux, je passe facilement d\'une techno à l\'autre et j\'apprécie autant travailler en totale autonomie qu\'au sein d\'une équipe.',
       'Actuellement en BUT Informatique à l\'IUT Lyon 1, je suis ouvert aux missions, stages et collaborations.',
     ]},
@@ -300,20 +300,20 @@ const STANDS_CONTENT = [
   ]},
   // 2 — Artisan — Projets
   { popupTheme: 'workshop', items: [
-    { label: 'FPS', title: '🎮 Jeu FPS d\'horreur', content: [
-      'Projet personnel : un jeu d\'horreur à la première personne développé en solo sous Unity.',
-      'Atmosphère immersive, mécaniques de survie et exploration. Une occasion d\'apprendre la gestion de scènes 3D, les collisions et l\'IA basique.',
-      'Réalisé en C#.',
+    { label: 'Annuaire', title: '📂 Logiciel Annuaire (C)', content: [
+      'Logiciel de gestion d\'annuaires développé en C.',
+      'Fonctionnalités : ajout, suppression, recherche et tri de contacts avec persistence des données en fichier.',
+      'Projet académique mené avec des contraintes techniques réelles.',
     ]},
-    { label: 'Idle Game', title: '⚙️ Idle Game Web', content: [
-      'Jeu web incrémental interactif de type idle, jouable dans le navigateur.',
-      'Progression automatisée, système de ressources et d\'achats. Un projet idéal pour maîtriser la gestion d\'état côté client.',
+    { label: 'Trajets', title: '🗺️ Application Trajets (Java)', content: [
+      'Application de gestion de trajets développée en Java.',
+      'Interface graphique, saisie d\'itinéraires, calcul et affichage des trajets.',
+      'Projet académique avec conception orientée objet.',
+    ]},
+    { label: 'Idle', title: '⚙️ Idle Game Web', content: [
+      'Jeu web incrémental interactif de type idle, jouable directement dans le navigateur.',
+      'Progression automatisée, système de ressources, achats et événements. Un projet idéal pour maîtriser la gestion d\'état côté client.',
       'Stack : PHP, JavaScript, HTML/CSS.',
-    ]},
-    { label: 'Outils', title: '🔨 Outils & Applications', content: [
-      'Logiciel de gestion d\'annuaires en C : manipulation de fichiers, recherche et tri.',
-      'Application de gestion de trajets en Java : interface graphique et calcul d\'itinéraires.',
-      'Deux projets académiques menés avec des contraintes techniques réelles.',
     ]},
   ]},
   // 3 — Paysan — Formation
@@ -333,27 +333,34 @@ const STANDS_CONTENT = [
   ]},
   // 4 — Boucher — Expériences
   { popupTheme: 'butcher', items: [
-    { label: 'Dev', title: '💻 Développeur stagiaire — ELISSAR', content: [
-      'Stage d\'avril à juin 2026.',
-      'Développement de plusieurs fonctionnalités en React et Node.js pour le portail citoyen de l\'association.',
+    { label: 'Travail', title: '💼 Expériences professionnelles', content: [
+      'Développeur stagiaire chez ELISSAR (avril – juin 2026) : développement de fonctionnalités React / Node.js pour le portail citoyen.',
+      'Technicien informatique stagiaire chez ASTIAS Informatique (décembre 2020) : conseil, vente de matériel et réparation logicielle et hardware.',
+      'Valet polyvalent au CITOTEL Côté Hôtel (juillet – septembre 2025) : ménage, réception, cuisine et veille de nuit.',
     ]},
     { label: 'Asso', title: '🤝 Engagement associatif', content: [
       'Responsable projets au BDE Informatique (mars 2025 – mars 2026) : pilotage de projets et événements de bout en bout.',
       'Membre actif au Student Club (janvier – juin 2026) : pré-organisation et logistique des événements associatifs.',
     ]},
-    { label: 'Débuts', title: '🏷️ Premières expériences', content: [
-      'Technicien informatique stagiaire chez ASTIAS Informatique (décembre 2020) : conseil, vente de matériel et réparation logicielle et hardware.',
-      'Valet polyvalent au CITOTEL Côté Hôtel (juillet – septembre 2025) : ménage, réception, cuisine et veille de nuit.',
-    ]},
-  ]},
-  // 5 — Poissonnier — Concours & Extras
-  { popupTheme: 'fishboard', items: [
     { label: 'Concours', title: '🏅 Concours nationaux', content: [
-      'Participant régulier aux concours nationaux de mathématiques et d\'informatique pendant plusieurs années.',
+      'Participant pluriannuel aux concours nationaux de mathématiques et d\'informatique.',
       'Ces compétitions ont renforcé mon goût pour la résolution de problèmes complexes et la pensée algorithmique.',
     ]},
-    { label: 'Extras', title: '✨ Divers', content: ['[À compléter]'] },
-    { label: 'Loisirs', title: '🎯 Centres d\'intérêt', content: ['[À compléter]'] },
+  ]},
+  // 5 — Poissonnier — Centres d'intérêt
+  { popupTheme: 'fishboard', items: [
+    { label: 'Asso', title: '🌐 Le monde associatif', content: [
+      'Très impliqué dans la vie associative depuis plusieurs années : organisation d\'événements, gestion de projets et dynamique de groupe.',
+      'Une école de la responsabilité et du collectif que je retrouve aussi bien dans mon BDE qu\'au Student Club.',
+    ]},
+    { label: 'Legos', title: '🧱 Construction LEGO', content: [
+      'La construction LEGO est pour moi une passion qui mêle créativité, architecture et patience.',
+      'Des petites structures du quotidien aux grands MOC inspirés de châteaux médiévaux — les briques m\'accompagnent depuis l\'enfance.',
+    ]},
+    { label: 'Japon', title: '🎌 Culture japonaise', content: [
+      'Passionné par la culture japonaise : mangas, animés, langue et esthétique.',
+      'J\'apprends le japonais en autodidacte et m\'y intéresse autant pour la narration que pour la philosophie qu\'il véhicule.',
+    ]},
   ]},
   // 6 — Boulanger — Contact
   { popupTheme: 'bread', items: [
@@ -367,11 +374,21 @@ const STANDS_CONTENT = [
       'Mes projets personnels, expérimentations et contributions. Pour un contact direct : 06 68 41 32 91.',
     ], links: [{ label: '⌨️ github.com/Florian-QUILLON', url: 'https://github.com/Florian-QUILLON' }] },
   ]},
-  // 7 — Tavernier — Réalisations (à compléter)
+  // 7 — Tavernier — Réalisations
   { popupTheme: 'tavern', items: [
-    { label: 'Réal. 1', title: '🍺 [Réalisation 1]', content: ['[À compléter]'] },
-    { label: 'Réal. 2', title: '🥂 [Réalisation 2]', content: ['[À compléter]'] },
-    { label: 'Réal. 3', title: '🏆 [Réalisation 3]', content: ['[À compléter]'] },
+    { label: 'FPS', title: '🎮 Jeu FPS d\'horreur', content: [
+      'Jeu d\'horreur à la première personne développé en solo sous Unity (C#).',
+      'Atmosphère immersive, mécaniques de survie et exploration. Gestion de scènes 3D, collisions, IA et audio.',
+      'Projet personnel réalisé en dehors du cursus scolaire.',
+    ]},
+    { label: 'Jeu96', title: '🎲 Jeu du 96', content: [
+      'Jeu web interactif disponible en ligne, conçu et développé entièrement en solo.',
+      'Jouable directement dans le navigateur — testez-le !',
+    ], links: [{ label: '🌐 Jouer au Jeu du 96', url: 'https://jeudu96.vercel.app' }] },
+    { label: 'Portfolio', title: '🏰 Portfolio médiéval LEGO', content: [
+      'Ce portfolio interactif en 3D que vous explorez en ce moment — construit avec React et Three.js.',
+      'Château médiéval entièrement procédural, 9 stands, sorcier animé, musique d\'ambiance et easter eggs cachés.',
+    ], links: [{ label: '🔗 florianquillon.fr', url: 'https://florianquillon.fr' }] },
   ]},
   // 8 — Sorcier — Boutique
   { popupTheme: 'cauldron', items: [
@@ -657,27 +674,17 @@ export default function LegoIntro({ onExited }) {
   useEffect(() => {
     const startAudio = () => {
       if (audioRef.current) return;
-      try {
-        const ac = new (window.AudioContext || window.webkitAudioContext)();
-        audioRef.current = ac;
-        const master = ac.createGain(); master.gain.value = 0.07; master.connect(ac.destination);
-        // Drone ambiant médiéval
-        [55, 82.5, 110].forEach((freq, i) => {
-          const osc = ac.createOscillator(); const g = ac.createGain();
-          osc.frequency.value = freq; osc.type = 'sine'; g.gain.value = 0.3 - i * 0.08;
-          osc.connect(g); g.connect(master); osc.start();
-        });
-        // Bruit de vent filtré
-        const buf = ac.createBuffer(1, ac.sampleRate * 3, ac.sampleRate);
-        const d = buf.getChannelData(0); for (let i=0;i<d.length;i++) d[i]=Math.random()*2-1;
-        const src = ac.createBufferSource(); src.buffer = buf; src.loop = true;
-        const filt = ac.createBiquadFilter(); filt.type='lowpass'; filt.frequency.value=220;
-        const wg = ac.createGain(); wg.gain.value = 0.12;
-        src.connect(filt); filt.connect(wg); wg.connect(master); src.start();
-      } catch(e) {}
+      const audio = new Audio('/melodigne-castle-152858.mp3');
+      audio.loop = true;
+      audio.volume = 0.15;
+      audio.play().catch(() => {});
+      audioRef.current = audio;
     };
     window.addEventListener('pointerdown', startAudio, { once: true });
-    return () => window.removeEventListener('pointerdown', startAudio);
+    return () => {
+      window.removeEventListener('pointerdown', startAudio);
+      if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
+    };
   }, []);
 
   useEffect(() => {
@@ -997,23 +1004,23 @@ export default function LegoIntro({ onExited }) {
       // role = personnage médiéval, phrases = accroches qui tournent toutes les 1-3 min
       const DEFS = [
         { color: 0x992222, subject: 'moi',              role: 'Forgeron',
-          phrases: ["Mon acier est solide comme mon code !", "Je forge des solutions, pas juste des épées !", "Chaque projet : une lame bien trempée !"] },
+          phrases: ["Le forgeron a fui... ses objets enchantés restent !", "On dit qu'il forgeait le code comme l'acier.", "Ses créations dorment sous un sortilège — révèle-les !"] },
         { color: 0x1a4499, subject: 'mes compétences',  role: 'Moine',
-          phrases: ["J'ai copié bien des parchemins... et des stacks !", "La sagesse s'accumule, comme les certifications !", "Du JavaScript au Latin, tout est dans ma bibliothèque !"] },
+          phrases: ["Le moine s'est évanoui dans la brume...", "Ses parchemins de sagesse sont enchantés, inutiles sans la Poudre.", "Il murmurait : 'Le savoir résiste à toute magie.'"] },
         { color: 0x1a6622, subject: 'mes projets',      role: 'Artisan',
-          phrases: ["Chaque couture : un projet livré avec soin !", "Je taille le code comme le cuir — sans bavure !", "Mes sandales durent 10 ans. Mes apps aussi !"] },
+          phrases: ["L'artisan a disparu du jour au lendemain...", "Ses œuvres sont figées sous l'enchantement du Sorcier.", "Brise le sort pour découvrir ce qu'il a bâti !"] },
         { color: 0x886600, subject: 'ma formation',     role: 'Paysan',
-          phrases: ["J'ai semé la curiosité, récolté les diplômes !", "De la charrue à l'IDE, j'ai tout appris ici !", "Bonne terre, bon ingénieur — c'est prouvé !"] },
+          phrases: ["Le paysan a abandonné ses récoltes cette nuit-là...", "Ses diplômes et ses graines sont sous le sortilège.", "La terre se souvient de ce qu'il a semé."] },
         { color: 0x661888, subject: 'mes expériences',  role: 'Boucher',
-          phrases: ["Du vécu bien découpé, sans os ni remplissage !", "Des années de métier, ça se goûte d'emblée !", "Chaque poste : une pièce de choix sélectionnée !"] },
-        { color: 0x147788, subject: 'mon blog tech',    role: 'Poissonnier',
-          phrases: ["Fraîcheur tech garantie, pêchée ce matin !", "Des idées si fraîches qu'elles nagent encore !", "Arrivage hebdo : articles du lac numérique !"] },
+          phrases: ["Le boucher a pris la fuite à l'aube...", "Ses années de métier sont scellées dans des parchemins enchantés.", "Découpe le sort pour révéler son vécu !"] },
+        { color: 0x147788, subject: 'mes intérêts',     role: 'Poissonnier',
+          phrases: ["Le poissonnier a levé les voiles au petit matin...", "Ses passions sont figées sous l'enchantement du Sorcier.", "Pêche les parchemins pour découvrir ce qui l'animait !"] },
         { color: 0x993300, subject: 'me contacter',     role: 'Boulanger',
-          phrases: ["Chaud devant ! Un message s'enfourne vite !", "Je réponds plus vite que mon levain ne monte !", "Venez causer, j'ai du pain sur la planche !"] },
+          phrases: ["Le boulanger a éteint son four cette nuit-là...", "Son adresse est quelque part dans ces objets enchantés.", "Brise le sort — peut-être qu'il répondra encore !"] },
         { color: 0x887700, subject: 'mes réalisations', role: 'Tavernier',
-          phrases: ["À trinquer avec mes meilleures créations !", "La première tournée est offerte si ça vous plaît !", "Chaque projet mérite un bon verre bien mérité !"] },
-        { color: 0x445566, subject: 'ma boutique',       role: 'Sorcier',
-          phrases: ["Poudre Révélatrice fraîchement distillée !", "Un seul objet mystérieux en stock — dépêchez-vous !", "La magie a un prix... mais elle vaut chaque pièce !"] },
+          phrases: ["La taverne est vide depuis l'arrivée du Sorcier...", "Les meilleures créations du tavernier dorment ici.", "Réveille-les avec la Poudre Révélatrice !"] },
+        { color: 0x445566, subject: 'ma boutique',      role: 'Sorcier',
+          phrases: ["C'est moi qui ai enchanté tout ça... intéressant, non ?", "La Poudre Révélatrice ? Je l'ai. Elle a un prix.", "Les marchands ont fui. Leurs secrets m'appartiennent désormais !"] },
       ];
 
       // ── Fonctions couleurs briques bois (brown warm) ──
@@ -1041,50 +1048,42 @@ export default function LegoIntro({ onExited }) {
 
       // ── Pancarte bois/parchemin affichée sur le stand (canvas 2× pour netteté) ──
       const makeSign = (role, subject, isWIP) => {
-        const W = 1400, H = 460;  // 2× résolution pour le rendu 3D
+        const W = 1400, H = 460, SCALE = 2;
         const cv = document.createElement('canvas');
-        cv.width = W; cv.height = H;
+        cv.width = W * SCALE; cv.height = H * SCALE;
         const ctx = cv.getContext('2d');
-
-        // Cadre bois
+        ctx.scale(SCALE, SCALE);
         ctx.fillStyle = '#7a4c18';
         ctx.beginPath(); ctx.roundRect(10, 10, W-20, H-20, 16); ctx.fill();
         ctx.strokeStyle = '#3a2008'; ctx.lineWidth = 20;
         ctx.beginPath(); ctx.roundRect(10, 10, W-20, H-20, 16); ctx.stroke();
-        // Parchemin intérieur
         ctx.fillStyle = '#f0d98a';
         ctx.beginPath(); ctx.roundRect(44, 44, W-88, H-88, 12); ctx.fill();
         ctx.strokeStyle = '#5a3810'; ctx.lineWidth = 6;
         ctx.beginPath(); ctx.roundRect(44, 44, W-88, H-88, 12); ctx.stroke();
-
-        ctx.textAlign = 'center';
-        ctx.lineJoin = 'round';
+        ctx.textAlign = 'center'; ctx.lineJoin = 'round';
         if (!isWIP) {
-          // Role — contour + remplissage pour lisibilité à distance
           ctx.font = 'bold 148px Georgia, serif';
-          ctx.strokeStyle = 'rgba(10,3,0,0.55)'; ctx.lineWidth = 10;
+          ctx.strokeStyle = 'rgb(0, 0, 0, 0.85)'; ctx.lineWidth = 10;
           ctx.strokeText(role, W/2, 194);
-          ctx.fillStyle = '#0d0300'; ctx.fillText(role, W/2, 194);
-
+          ctx.fillStyle = '#000000'; ctx.fillText(role, W/2, 194);
           ctx.strokeStyle = '#7a4c18'; ctx.lineWidth = 4;
           ctx.beginPath(); ctx.moveTo(W*.12, 228); ctx.lineTo(W*.88, 228); ctx.stroke();
-
           ctx.font = 'bold 98px Georgia, serif';
-          ctx.strokeStyle = 'rgba(10,3,0,0.45)'; ctx.lineWidth = 7;
+          ctx.strokeStyle = 'rgb(0, 0, 0, 0.80)'; ctx.lineWidth = 7;
           ctx.strokeText(subject, W/2, 360);
-          ctx.fillStyle = '#1a0600'; ctx.fillText(subject, W/2, 360);
+          ctx.fillStyle = '#000000'; ctx.fillText(subject, W/2, 360);
         } else {
           ctx.font = 'bold 120px Georgia, serif';
           ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = 8;
           ctx.strokeText(role, W/2, 192);
-          ctx.fillStyle = '#555'; ctx.fillText(role, W/2, 192);
-          ctx.font = '80px Georgia, serif'; ctx.fillStyle = '#888';
+          ctx.fillStyle = '#000000'; ctx.fillText(role, W/2, 192);
+          ctx.font = '80px Georgia, serif'; ctx.fillStyle = '#000000';
           ctx.fillText('Bientôt...', W/2, 340);
         }
-
         const tex = new THREE.CanvasTexture(cv);
-        tex.generateMipmaps = false;
-        tex.minFilter = THREE.LinearFilter;
+        tex.generateMipmaps = true;
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
         tex.magFilter = THREE.LinearFilter;
         tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
         return new THREE.Mesh(
@@ -1093,36 +1092,28 @@ export default function LegoIntro({ onExited }) {
         );
       };
 
-      // ── Texture bulle — canvas 2× résolution, sans mipmap (stable) ──
       const makeBubbleTex = (phrase, isWIP) => {
-        const W = 1600, H = 640;
-        const bubH = H - 112;
+        const W = 1600, H = 640, SCALE = 2, bubH = H - 112;
         const fnt = isWIP ? 'italic 96px Verdana, sans-serif' : 'bold 112px Verdana, sans-serif';
-
-        // Word-wrap
         const tmpCtx = document.createElement('canvas').getContext('2d');
         tmpCtx.font = fnt;
         const words = phrase.split(' ');
-        const lines = [];
-        let cur = '';
+        const lines = []; let cur = '';
         for (const w of words) {
           const t = cur ? `${cur} ${w}` : w;
           if (tmpCtx.measureText(t).width > W - 128 && cur) { lines.push(cur); cur = w; }
           else cur = t;
         }
         if (cur) lines.push(cur);
-
         const cv = document.createElement('canvas');
-        cv.width = W; cv.height = H;
+        cv.width = W * SCALE; cv.height = H * SCALE;
         const ctx = cv.getContext('2d');
+        ctx.scale(SCALE, SCALE);
         const tx = W / 2, tw = 56;
-
         ctx.shadowColor = 'rgba(0,0,0,0.28)'; ctx.shadowBlur = 28; ctx.shadowOffsetY = 10;
-        ctx.fillStyle = '#fff';
-        ctx.strokeStyle = '#111'; ctx.lineWidth = 14;
+        ctx.fillStyle = '#fff'; ctx.strokeStyle = '#111'; ctx.lineWidth = 14;
         ctx.beginPath(); ctx.roundRect(16, 16, W-32, bubH-16, 32); ctx.fill(); ctx.stroke();
         ctx.shadowColor = 'transparent';
-
         ctx.fillStyle = '#fff';
         ctx.fillRect(tx-tw-8, bubH-28, (tw+8)*2, 32);
         ctx.beginPath();
@@ -1132,28 +1123,22 @@ export default function LegoIntro({ onExited }) {
         ctx.beginPath();
         ctx.moveTo(tx-tw, bubH-16); ctx.lineTo(tx, H-16); ctx.lineTo(tx+tw, bubH-16);
         ctx.stroke();
-
         const lineH = 124;
         const totalH = lines.length * lineH;
         const startY = (bubH - 32 - totalH) / 2 + 32 + lineH * 0.82;
-        ctx.textAlign = 'center';
-        ctx.font = fnt;
-        ctx.lineJoin = 'round';
-        ctx.strokeStyle = 'rgba(0,0,0,0.55)';
-        ctx.lineWidth = 10;
+        ctx.textAlign = 'center'; ctx.font = fnt; ctx.lineJoin = 'round';
+        ctx.strokeStyle = 'rgba(0,0,0,0.55)'; ctx.lineWidth = 10;
         lines.forEach((l, i) => ctx.strokeText(l, W/2, startY + i * lineH));
         ctx.fillStyle = isWIP ? '#444' : '#111';
         lines.forEach((l, i) => ctx.fillText(l, W/2, startY + i * lineH));
-
         const tex = new THREE.CanvasTexture(cv);
-        tex.generateMipmaps = false;
-        tex.minFilter = THREE.LinearFilter;
+        tex.generateMipmaps = true;
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
         tex.magFilter = THREE.LinearFilter;
         tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
         return tex;
       };
 
-      // ── Bulle de dialogue du personnage (queue pointant vers le bas, vers Jay) ──
       const makeSpeechBubble = (phrase, isWIP) => {
         const tex = makeBubbleTex(phrase, isWIP);
         return new THREE.Mesh(
@@ -1171,6 +1156,7 @@ export default function LegoIntro({ onExited }) {
       const LHF = 1040;  // hauteur poteaux avant (toit incliné)
       const CH  = 480;   // hauteur comptoir
       const CT  = 64;    // épaisseur plateau
+      const CD  = Math.round(SD * 0.55); // profondeur comptoir (ne va pas de poteau à poteau)
 
       // ── Textures bois partagées (calculées une fois pour tous les stands) ──
       const mWTop2 = new THREE.MeshLambertMaterial({ color: C_TOP, side: THREE.DoubleSide });
@@ -1738,7 +1724,7 @@ export default function LegoIntro({ onExited }) {
 
       // ── Petite plaque métallique sous chaque objet ──
       const makePlaqueTex = (label, cHex) => {
-        const W = 400, H = 108;
+        const W = 800, H = 216;
         const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
         const ctx = cv.getContext('2d');
         // Fond métal brossé
@@ -1748,22 +1734,23 @@ export default function LegoIntro({ onExited }) {
         ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
         // Bandeau couleur du stand en bas
         const r = (cHex >> 16) & 0xFF, gv = (cHex >> 8) & 0xFF, b = cHex & 0xFF;
-        ctx.fillStyle = `rgb(${r},${gv},${b})`; ctx.fillRect(0, H - 20, W, 20);
+        ctx.fillStyle = `rgb(${r},${gv},${b})`; ctx.fillRect(0, H - 40, W, 40);
         // Contour métal
-        ctx.strokeStyle = '#80807a'; ctx.lineWidth = 8; ctx.strokeRect(4, 4, W - 8, H - 8);
+        ctx.strokeStyle = '#80807a'; ctx.lineWidth = 16; ctx.strokeRect(8, 8, W - 16, H - 16);
         // Rivets aux coins
-        [[14,14],[W-14,14],[14,H-14],[W-14,H-14]].forEach(([x,y]) => {
-          ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI*2);
+        [[28,28],[W-28,28],[28,H-28],[W-28,H-28]].forEach(([x,y]) => {
+          ctx.beginPath(); ctx.arc(x, y, 10, 0, Math.PI*2);
           ctx.fillStyle = '#909088'; ctx.fill();
-          ctx.strokeStyle = '#b0b0a8'; ctx.lineWidth = 2; ctx.stroke();
+          ctx.strokeStyle = '#b0b0a8'; ctx.lineWidth = 4; ctx.stroke();
         });
         // Texte
         ctx.fillStyle = '#181810';
-        ctx.font = 'bold 52px Georgia, serif';
+        ctx.font = 'bold 104px Georgia, serif';
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText(label, W / 2, (H - 20) / 2 + 2);
+        ctx.fillText(label, W / 2, (H - 40) / 2 + 4);
         const tex = new THREE.CanvasTexture(cv);
-        tex.generateMipmaps = false; tex.minFilter = THREE.LinearFilter;
+        tex.generateMipmaps = true;
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
         tex.magFilter = THREE.LinearFilter;
         tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
         return tex;
@@ -1813,7 +1800,7 @@ export default function LegoIntro({ onExited }) {
         add(SW-LW*2, LW*.55, LW*.55, WM, 0, CH*.42, pzB);
 
         // ── Comptoir avec briques bois ──
-        add(SW, CT, SD, ctrMats, 0, CH, 0);
+        add(SW, CT, CD, ctrMats, 0, CH, pzF - CD/2);
         // Bord avant (latte verticale) — face +Z texturée
         add(SW, CH-LW*.5, LW*.45,
           [mk2(tLatte),mk2(tLatte), mWTop2, mWBot2, mk2(tLatte),mk2(tLatte)],
@@ -1871,6 +1858,7 @@ export default function LegoIntro({ onExited }) {
           x: cx + jOff * Math.sin(ry),  y: flY,  z: cz + jOff * Math.cos(ry),
           bx: cx,  bz: cz,
           ry, subject: def.subject, role: def.role, phrases: def.phrases,
+          isSorcier: def.role === 'Sorcier',
         });
 
         // Hitbox pour navigation (visible=false → raycaster la saute, Mesh.raycast vérifie this.visible)
@@ -1967,7 +1955,6 @@ export default function LegoIntro({ onExited }) {
           phrases,
           isWIP,
           currentIdx: 0,
-          // décalage initial aléatoire pour que les stands ne changent pas tous en même temps
           nextSwitch: Date.now() + 30000 + Math.random() * 150000,
         });
       });
@@ -1987,26 +1974,30 @@ export default function LegoIntro({ onExited }) {
         }
       }, 5000);
 
-      // ── Modèles Jay (async, derrière le comptoir) ──
+      // ── Modèle Sorcier (Gandalf) — seul personnage restant sur la place ──
       let jaysCancelled = false;
       stateRef.current._cancelJays = () => { jaysCancelled = true; };
-      const loader = new GLTFLoader();
-      loader.load('/models/legojay/scene.gltf', gltf => {
-        if (jaysCancelled) return;
-        const base = gltf.scene;
-        const bbox = new THREE.Box3().setFromObject(base);
-        const size = bbox.getSize(new THREE.Vector3());
-        const scale = 820 / (size.y || 1);
-
-        jayData.forEach(({ x, y, z, ry }) => {
+      const sorcierEntry = jayData.find(d => d.isSorcier);
+      if (sorcierEntry) {
+        const loader = new GLTFLoader();
+        loader.load('/models/lego_gandalf/scene.gltf', gltf => {
+          if (jaysCancelled) return;
+          const base = gltf.scene;
+          const bbox = new THREE.Box3().setFromObject(base);
+          const size = bbox.getSize(new THREE.Vector3());
+          const scale = 800 / (size.y || 1);
           const clone = base.clone(true);
           clone.scale.setScalar(scale);
           const cb = new THREE.Box3().setFromObject(clone);
-          clone.position.set(x, y - cb.min.y, z);
-          clone.rotation.y = ry;
+          clone.position.set(
+            sorcierEntry.x,
+            sorcierEntry.y - cb.min.y + 120,
+            sorcierEntry.z - 350           // décalé vers l'objet mystère
+          );
           scene.add(clone);
+          stateRef.current._sorcierModel = clone;
         });
-      });
+      }
     }
 
     // ── Détails décoratifs ──
@@ -2766,6 +2757,15 @@ export default function LegoIntro({ onExited }) {
           pos.needsUpdate = true;
           bm.geometry.computeVertexNormals();
         });
+      }
+
+      // ── Sorcier suit le regard du joueur ─────────────────────────────────
+      const sm = stateRef.current._sorcierModel;
+      if (sm) {
+        sm.rotation.y = Math.atan2(
+          camera.position.x - sm.position.x,
+          camera.position.z - sm.position.z
+        );
       }
 
       renderer.render(scene, camera);
@@ -3545,7 +3545,7 @@ export default function LegoIntro({ onExited }) {
               boxShadow:'0 2px 8px rgba(0,0,0,0.6)',
               textShadow:'0 0 8px rgba(200,150,0,0.5)',
             }}>
-              📜 {revealedItems.size} / 27 révélés
+              📜 {revealedItems.size} / 24 révélés
             </div>
           )}
           {revealedItems.size > 0 && (
@@ -3620,10 +3620,10 @@ export default function LegoIntro({ onExited }) {
           }}
           onPointerDown={e=>e.stopPropagation()}>
             <div style={{fontWeight:700, fontSize:'1.1rem', marginBottom:16, borderBottom:'1px solid #c8982066', paddingBottom:8}}>
-              📜 Journal des Parchemins — {revealedItems.size}/27
+              📜 Journal des Parchemins — {revealedItems.size}/24
             </div>
-            {STANDS_CONTENT.map((stand, si) => {
-              const def = [{role:'Forgeron'},{role:'Moine'},{role:'Artisan'},{role:'Paysan'},{role:'Boucher'},{role:'Poissonnier'},{role:'Boulanger'},{role:'Tavernier'},{role:'Sorcier'}][si];
+            {STANDS_CONTENT.slice(0, 8).map((stand, si) => {
+              const def = [{role:'Forgeron'},{role:'Moine'},{role:'Artisan'},{role:'Paysan'},{role:'Boucher'},{role:'Poissonnier'},{role:'Boulanger'},{role:'Tavernier'}][si];
               return (
                 <div key={si} style={{marginBottom:14}}>
                   <div style={{fontWeight:700, color:'#c89820', fontSize:'0.85rem', marginBottom:4}}>
