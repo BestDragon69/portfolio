@@ -2949,18 +2949,30 @@ export default function LegoIntro({ onExited }) {
       }
     }
 
-    const groups     = stands.map(sd => sd.group);
-    const intersects = raycaster.intersectObjects(groups, true);
-    if (intersects.length === 0) return;
+    const groups = stands.map(sd => sd.group);
 
-    // Trouver standIdx et itemIdx dans toutes les intersections
-    let standIdx, itemIdx;
-    for (const inter of intersects) {
-      const ud = inter.object.userData;
-      if (standIdx === undefined && ud.standIdx !== undefined) standIdx = ud.standIdx;
-      if (itemIdx  === undefined && ud.itemIdx  !== undefined) itemIdx  = ud.itemIdx;
-      if (standIdx !== undefined && itemIdx !== undefined) break;
+    // Multi-sample en croix sur le rayon du curseur (24px = moitié du curseur 48px)
+    // → chaque clic couvre toute la zone visuelle du curseur, pas seulement le pixel exact
+    const toNDC = (px, py) => new THREE.Vector2(
+      ((px - bounds.left) / bounds.width)  *  2 - 1,
+      -((py - bounds.top)  / bounds.height) *  2 + 1
+    );
+    const CURSOR_OFFSETS = [[0,0],[14,10],[28,10],[8,24],[24,24],[14,38],[30,38]];
+    let standIdx, itemIdx, navStandIdx;
+    for (const [dx, dy] of CURSOR_OFFSETS) {
+      const rc = new THREE.Raycaster();
+      rc.setFromCamera(toNDC(e.clientX + dx, e.clientY + dy), s.camera);
+      let si, ii;
+      for (const inter of rc.intersectObjects(groups, true)) {
+        const ud = inter.object.userData;
+        if (si === undefined && ud.standIdx !== undefined) si = ud.standIdx;
+        if (ii === undefined && ud.itemIdx  !== undefined) ii = ud.itemIdx;
+        if (si !== undefined && ii !== undefined) break;
+      }
+      if (si !== undefined && ii !== undefined) { standIdx = si; itemIdx = ii; break; }
+      if (si !== undefined && navStandIdx === undefined) navStandIdx = si;
     }
+    if (standIdx === undefined && navStandIdx !== undefined) standIdx = navStandIdx;
     if (standIdx === undefined) return;
 
     // ── Mode "face à un stand" : pas de navigation, seulement les objets ──
