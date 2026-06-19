@@ -2,5 +2,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  cursor: none !important;
+}
+
+/* Custom sword cursor – desktop/trackpad only */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+/* Prevent overscroll/bounce on mobile */
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
 }

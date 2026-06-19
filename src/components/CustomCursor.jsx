@@ -13,14 +13,13 @@ const STYLE = `
 `;
 
 // Pointe de la lame = hotspot (0,0). L'épée s'étend vers (+40, +43).
-// Ces points couvrent la zone visible de l'épée pour le fat-click.
 const SWORD_SAMPLES = [
   [14, 10], [28, 10],
   [8,  24], [24, 24],
   [14, 38], [30, 38],
 ];
 
-export default function CustomCursor() {
+function CursorImpl() {
   const ref    = useRef(null);
   const pos    = useRef({ x: -999, y: -999 });
   const [swinging, setSwinging] = useState(false);
@@ -40,12 +39,9 @@ export default function CustomCursor() {
 
   useEffect(() => {
     const onDown = (e) => {
-      // Animation d'estoc
       setSwinging(false);
       requestAnimationFrame(() => setSwinging(true));
 
-      // Fat-click : propager le clic aux éléments interactifs couverts par l'épée
-      // La pointe [0,0] est déjà gérée par l'événement natif → on évite le double-clic
       const tipEl = document.elementFromPoint(e.clientX, e.clientY);
       const tipInteractive = tipEl?.closest('button, a, [role="button"]');
       const seen = new Set();
@@ -92,4 +88,10 @@ export default function CustomCursor() {
       </div>
     </>
   );
+}
+
+// Touch devices have no hovering cursor to track — skip entirely
+export default function CustomCursor() {
+  if (navigator.maxTouchPoints > 0) return null;
+  return <CursorImpl />;
 }

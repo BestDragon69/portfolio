@@ -508,6 +508,7 @@ function Fireworks({ active }) {
 
 // ── Composant ─────────────────────────────────────────────────────────────────
 export default function LegoIntro({ onExited }) {
+  const isTouch = navigator.maxTouchPoints > 0;
   const [flashIn,  setFlashIn]  = useState(true);
   const [wx,       setWx]       = useState(null);
   const [showKing, setShowKing] = useState(false);
@@ -526,6 +527,7 @@ export default function LegoIntro({ onExited }) {
   // null | 'blackout' | 'cave' | 'dialog' | 'fadeout'
   const [coinCount, setCoinCount] = useState(0); // reset chaque session
   const [showHelp, setShowHelp] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(() => window.innerHeight > window.innerWidth);
   const [showQuest, setShowQuest] = useState(false);
   const [nightGift, setNightGift] = useState(false);
   const torchFlamesRef = useRef([]);
@@ -535,7 +537,7 @@ export default function LegoIntro({ onExited }) {
   const eggStonesRef     = useRef([]);
   const caveRef          = useRef(null);
   const eggDiveOverlayRef = useRef(null);
-  const stateRef  = useRef({ rotY: 0, dragX: null, dragX0: null, dragY0: null, camera: null });
+  const stateRef  = useRef({ rotY: 0, dragX: null, dragX0: null, dragY0: null, camera: null, isTouch: navigator.maxTouchPoints > 0 });
   // Setters accessibles depuis l'animate loop (useEffect)
   stateRef.current._setAtStand    = setAtStand;
   stateRef.current._setHoldState  = setHoldState;
@@ -582,6 +584,13 @@ export default function LegoIntro({ onExited }) {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(orientation: portrait)');
+    const handler = e => setIsPortrait(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
   }, []);
 
   useEffect(() => {
@@ -731,7 +740,11 @@ export default function LegoIntro({ onExited }) {
     scene.add(sun);
 
     // Caméra — positionnée près du mur Sud, regardant vers le Nord
-    const camera = new THREE.PerspectiveCamera(60, W / H, 10, 200000);
+    const initAspect = W / H;
+    const initFov = initAspect < 1
+      ? Math.min(110, Math.round(2 * Math.atan(Math.tan((60 * Math.PI / 180) / 2) / initAspect) * 180 / Math.PI))
+      : 60;
+    const camera = new THREE.PerspectiveCamera(initFov, initAspect, 10, 200000);
     camera.position.set(0, 0, WALL_DIST * 0.85);
     camera.rotation.order = 'YXZ';
     camera.rotation.x = THREE.MathUtils.degToRad(-3);
@@ -2637,6 +2650,16 @@ export default function LegoIntro({ onExited }) {
             pGrp.position.copy(objWp);
           }
           pGrp.rotation.set(0, camera.rotation.y, 0, 'YXZ');
+          // Sur touch : parchemin en overlay devant tout (depth test ignoré)
+          if (stateRef.current.isTouch) {
+            pGrp.traverse(child => {
+              if (child.isMesh) {
+                child.renderOrder = 999;
+                child.material = child.material.clone();
+                child.material.depthTest = false;
+              }
+            });
+          }
           scene.add(pGrp);
           stateRef.current.parchmentObj = { grp: pGrp, returning: false };
         }
@@ -2666,12 +2689,12 @@ export default function LegoIntro({ onExited }) {
             scene.remove(sp.grp); stateRef.current.parchmentObj = null;
           }
         } else {
-          // Slide vers la droite de la caméra
+          // Slide vers la droite (desktop) ou centré devant (touch)
           const pFwd = new THREE.Vector3(); camera.getWorldDirection(pFwd);
           const pRight = new THREE.Vector3().crossVectors(pFwd, new THREE.Vector3(0,1,0)).normalize();
           const pTarget = camera.position.clone()
             .addScaledVector(pFwd, 400)
-            .addScaledVector(pRight, 240)
+            .addScaledVector(pRight, stateRef.current.isTouch ? 0 : 240)
             .setY(camera.position.y - 5);
           sp.grp.position.lerp(pTarget, 0.07);
           // Rétablir la scale si elle avait été réduite
@@ -2685,7 +2708,7 @@ export default function LegoIntro({ onExited }) {
         camera.getWorldDirection(fwd);
         const right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0,1,0)).normalize();
 
-        const isLeft = hi.state === 'held_revealed' || hi.state === 'parchment_returning';
+        const isLeft = !stateRef.current.isTouch && (hi.state === 'held_revealed' || hi.state === 'parchment_returning');
 
         if (hi.state === 'flying_in' || hi.state === 'held_center' || hi.state === 'held_revealed' || hi.state === 'parchment_returning') {
           const worldTarget = camera.position.clone()
@@ -2774,7 +2797,12 @@ export default function LegoIntro({ onExited }) {
 
     const onResize = () => {
       const w = mount.clientWidth, h = mount.clientHeight;
-      camera.aspect = w / h; camera.updateProjectionMatrix();
+      const asp = w / h;
+      camera.aspect = asp;
+      camera.fov = asp < 1
+        ? Math.min(110, Math.round(2 * Math.atan(Math.tan((60 * Math.PI / 180) / 2) / asp) * 180 / Math.PI))
+        : 60;
+      camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     };
     window.addEventListener('resize', onResize);
@@ -2833,7 +2861,7 @@ export default function LegoIntro({ onExited }) {
     const dx = e.clientX - s.dragX;
     s.dragX = e.clientX;
     s.camTarget = null;
-    s.rotY = Math.max(-70, Math.min(70, s.rotY + dx * 0.3));
+    s.rotY = Math.max(-70, Math.min(70, s.rotY + dx * (isTouch ? 0.45 : 0.3)));
     if (s.camera) s.camera.rotation.y = THREE.MathUtils.degToRad(-s.rotY);
   }
   function onPointerUp(e) {
@@ -2844,7 +2872,7 @@ export default function LegoIntro({ onExited }) {
     );
     s.dragX = null;
     console.log(`[UP] moved=${moved.toFixed(1)} atStand=${s.atStand} → click=${s.atStand || moved < 6}`);
-    if (s.atStand || moved < 6) handleStandClick(e);
+    if (s.atStand || moved < (isTouch ? 14 : 6)) handleStandClick(e);
   }
   function onPointerCancel() { stateRef.current.dragX = null; }
 
@@ -3201,11 +3229,32 @@ export default function LegoIntro({ onExited }) {
         }} />
       ))}
 
-      <div style={{ position: 'absolute', top: '5%', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 20, pointerEvents: 'none' }}>
-        <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.75rem', fontWeight: 700, letterSpacing: 2, textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
-          {atStand ? 'CLIQUER sur un objet · ÉCHAP pour repartir' : 'CLIQUER-GLISSER POUR REGARDER'}
+      {!(isTouch && atStand) && (
+        <div style={{ position: 'absolute', top: '5%', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 20, pointerEvents: 'none' }}>
+          <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.75rem', fontWeight: 700, letterSpacing: 2, textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+            {atStand
+              ? 'CLIQUER sur un objet · ÉCHAP pour repartir'
+              : isTouch ? 'GLISSER POUR REGARDER' : 'CLIQUER-GLISSER POUR REGARDER'}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Bouton retour mobile (touch + atStand) */}
+      {isTouch && atStand && (
+        <button
+          onClick={handleBack}
+          style={{
+            position: 'absolute', top: 16, left: 16, zIndex: 30,
+            background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.3)',
+            borderRadius: 8, color: '#fff', fontSize: '0.85rem', fontWeight: 700,
+            padding: '8px 14px', letterSpacing: 1, backdropFilter: 'blur(4px)',
+            WebkitBackdropFilter: 'blur(4px)', cursor: 'pointer',
+          }}
+        >
+          ← Retour
+        </button>
+      )}
+
 
       {/* ── Boutique Sorcier / Saupoudrer / Poudre requise ── */}
       {holdState?.phase === 'center' && (() => {
@@ -3738,30 +3787,51 @@ export default function LegoIntro({ onExited }) {
       )}
 
       {/* ── Roi tutoriel ── */}
-      {showKing && !kingGone && (
+      {showKing && !kingGone && (() => {
+        const portrait = isTouch && isPortrait;
+        return (
         <div
           style={{
             position: 'absolute', bottom: 0, left: 0, zIndex: 40,
-            display: 'flex', alignItems: 'flex-end',
-            padding: '0 0 0 12px', cursor: 'default',
+            display: 'flex',
+            flexDirection: portrait ? 'column' : 'row',
+            alignItems: portrait ? 'flex-start' : 'flex-end',
+            padding: portrait ? '0 12px 8px' : '0 0 0 12px',
+            cursor: 'default',
             animation: 'king-rise 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards',
           }}
           onPointerDown={e => e.stopPropagation()}
           onPointerMove={e => e.stopPropagation()}
           onPointerUp={e => e.stopPropagation()}
         >
-          <img src="/lego_roi.png" alt="" draggable={false}
-            style={{ height: 1000, userSelect: 'none', flexShrink: 0, transform: 'translateY(90px)', imageRendering: 'pixelated' }} />
-
+          {/* Bulle en premier dans le DOM → order:-1 en paysage pour rester à droite */}
           <div style={{
             position: 'relative', background: '#fff', border: '3px solid #111',
-            borderRadius: 12, padding: '18px 44px 16px 18px',
-            maxWidth: 420, marginBottom: 550,
+            borderRadius: 12, padding: '14px 40px 12px 14px',
+            maxWidth: portrait ? 'calc(100vw - 24px)' : 420,
+            marginBottom: portrait ? 0 : 550,
+            order: portrait ? 0 : 1,
             boxShadow: '5px 5px 0 rgba(0,0,0,0.4)',
             fontFamily: '"Courier New",monospace',
             animation: 'bubble-pop 0.35s ease-out forwards',
           }}>
-            {/* Triangle pointant vers le roi (gauche) */}
+            {/* Triangle : pointe vers le bas (portrait) ou vers la gauche (paysage) */}
+            {portrait ? (<>
+              <div style={{
+                position: 'absolute', bottom: -19, left: 30,
+                width: 0, height: 0,
+                borderLeft: '12px solid transparent',
+                borderRight: '12px solid transparent',
+                borderTop: '19px solid #111',
+              }} />
+              <div style={{
+                position: 'absolute', bottom: -14, left: 32,
+                width: 0, height: 0,
+                borderLeft: '10px solid transparent',
+                borderRight: '10px solid transparent',
+                borderTop: '15px solid #fff',
+              }} />
+            </>) : (<>
             <div style={{
               position: 'absolute', left: -19, bottom: 30,
               width: 0, height: 0,
@@ -3775,7 +3845,7 @@ export default function LegoIntro({ onExited }) {
               borderTop: '10px solid transparent',
               borderBottom: '10px solid transparent',
               borderRight: '15px solid #fff',
-            }} />
+            }} /></>)}
 
             {/* Fermer */}
             <button onClick={handleKingGift} style={{
@@ -3820,8 +3890,22 @@ export default function LegoIntro({ onExited }) {
               )}
             </div>
           </div>
+
+          {/* Image du roi — après la bulle dans le DOM pour passer en dessous en portrait */}
+          <img src="/lego_roi.png" alt="" draggable={false}
+            style={{
+              height: portrait ? 240 : 1000,
+              userSelect: 'none',
+              flexShrink: 0,
+              transform: portrait ? 'translateY(20px)' : 'translateY(90px)',
+              imageRendering: 'pixelated',
+              order: portrait ? 1 : 0,
+              alignSelf: 'flex-end',
+            }}
+          />
         </div>
-      )}
+        );
+      })()}
 
 
 
